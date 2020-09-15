@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -30,6 +29,7 @@ string grabLast(string str)
     return last;
 }
 
+//insertion sort that alphabetizes
 void InsertionSort(string *pointer, int length)
 {
     string temp;
@@ -50,7 +50,7 @@ void InsertionSort(string *pointer, int length)
 int main()
 {
 
-    string test = "ADBCabcd";
+    string test = "AbrahamCervantesA";
     int rows = test.length();
     string array[rows];
     string shiftedarray = test;
@@ -64,21 +64,56 @@ int main()
     }
     //array[1] = *(array+2);
 
-    //cout<< *(array +1)<<endl;
+    //sort the cycled strings
     InsertionSort(array, rows);
 
-
-
-    //grab each last character from, cycled strings
+    //grab each last character from cycled+sorted strings
     string last[rows];
     for(int i = 0; i< rows;i++)
     {
         last[i] = grabLast(array[i]);
     }
 
-    for(int i = 0; i< rows;i++)
+
+
+    string output;
+    //checks for count of each letter in last. adds it to a final output string.
+    for(int i = 0; i<rows;i++)
     {
-        std::cout << array[i] << std::endl;
+        string letter = last[i];
+        int count = 0;
+        int searched = 0;
+
+        for(int k = 0; k<i;k++)
+        {
+            if(letter.compare(last[k])==0)
+            {
+                searched =1;
+            }
+        }
+
+        for(int j = 0; j< rows; j++)
+        {
+
+            if(letter.compare(last[j])==0)
+            {
+                count++;
+            }
+        }
+        if(searched ==0)
+        {
+            output+= std::to_string(count);
+            output+=letter;
+        }
+
     }
+
+    string final;
+    for(int i = 0; i<output.length();i++)
+    {
+        final += output[i];
+        final += " ";
+    }
+    cout<< final;
 
 }
