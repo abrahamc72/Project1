@@ -1,7 +1,5 @@
 
 #include <iostream>
-#include <iostream>
-#include <iostream>
 #include <fstream>
 #include <cstring>
 #include <string>
@@ -34,26 +32,25 @@ string grabLast(string str)
 
 void InsertionSort(string *pointer, int length)
 {
-    for (int i = 1; i < length; i++)
+    string temp;
+    int i;
+    for(i = 1; i<length; i++)
     {
-        string k = *(pointer +i);
-        int j = i - 1;
-        while (j >= 0 && arr[j] > key)
+        temp = *(pointer+i);
+        int j;
+
+        for(j = i - 1; j >= 0 && (*(pointer+j)).compare(temp)>0 ; j--)
         {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            pointer[j+1] = *(pointer+j);
         }
-        arr[j + 1] = key;
+        pointer[j+1] = temp;
     }
-
-
-
 }
 
 int main()
 {
 
-    string test = "Mississippi";
+    string test = "ADBCabcd";
     int rows = test.length();
     string array[rows];
     string shiftedarray = test;
@@ -65,7 +62,9 @@ int main()
         shiftedarray = shiftLeft(shiftedarray);
         array[i] = string(shiftedarray);
     }
+    //array[1] = *(array+2);
 
+    //cout<< *(array +1)<<endl;
     InsertionSort(array, rows);
 
 
@@ -83,11 +82,3 @@ int main()
     }
 
 }
-
-
-
-
-
-
-
-
