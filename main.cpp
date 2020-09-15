@@ -47,58 +47,66 @@ void InsertionSort(string *pointer, int length)
     }
 }
 
-int main()
+int main(int argc,char* argv[])
 {
 
-    string test = "AbrahamCervantesA";
-    int rows = test.length();
-    string array[rows];
-    string shiftedarray = test;
-    array[0] = test;
+    while(cin) {
+        string test;
+        std::getline(cin, test);
+        int rows = test.length();
+        string array[rows];
+        string shiftedarray = test;
+        array[0] = test;
+        string original = test;
+        int originalindex = 0;
 
-    //use the shiftleft func to shift each string and place into array.
-    for(int i = 1; i< rows; i++)
-    {
-        shiftedarray = shiftLeft(shiftedarray);
-        array[i] = string(shiftedarray);
-    }
-    //array[1] = *(array+2);
-
-    //sort the cycled strings
-    InsertionSort(array, rows);
-
-    //grab each last character from cycled+sorted strings
-    string last[rows];
-    for(int i = 0; i< rows;i++)
-    {
-        last[i] = grabLast(array[i]);
-    }
-
-
-
-    string output;
-    //checks for count of each letter in last. adds it to a final output string.
-    for(int i = 0; i<rows;i++)
-    {
-        if(i>0)
-        {
-            output+= " ";
+        //use the shiftleft func to shift each string and place into array.
+        for (int i = 1; i < rows; i++) {
+            shiftedarray = shiftLeft(shiftedarray);
+            array[i] = string(shiftedarray);
         }
-        string letter = last[i];
-        int count = 1;
-        int searched = 0;
+        //array[1] = *(array+2);
 
-        if(i<rows-1 && letter.compare(last[i+1])==0)
-        {
-            count++;
-            i++;
+        //sort the cycled strings
+        if (argv[1] == "insertion") {
+            InsertionSort(array, rows);
         }
-        output += std::to_string(count);
-        output += " ";
-        output += letter;
 
+        for (int i = 0; i < rows; i++) {
+            if (original.compare(array[i]) == 0) {
+                originalindex = i;
+            }
+        }
+
+
+        //grab each last character from cycled+sorted strings
+        string last[rows];
+        for (int i = 0; i < rows; i++) {
+            last[i] = grabLast(array[i]);
+        }
+
+
+        string output;
+        //checks for count of each letter in last. adds it to a final output string.
+        for (int i = 0; i < rows; i++) {
+            if (i > 0) {
+                output += " ";
+            }
+            string letter = last[i];
+            int count = 1;
+            int searched = 0;
+
+            if (i < rows - 1 && letter.compare(last[i + 1]) == 0) {
+                count++;
+                i++;
+            }
+            output += std::to_string(count);
+            output += " ";
+            output += letter;
+
+        }
+
+        cout << originalindex << endl;
+        cout << output;
     }
-
-    cout<< output;
-
 }
