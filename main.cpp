@@ -23,6 +23,7 @@ string shiftLeft(string str)
     return shifted;
 }
 
+//function to grab the last letter of a string
 string grabLast(string str)
 {
     string last;
@@ -31,11 +32,26 @@ string grabLast(string str)
     return last;
 }
 
+void InsertionSort(string *pointer, int length)
+{
+    for (int i = 1; i < length; i++)
+    {
+        string k = *(pointer +i);
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+
+
+
+}
+
 int main()
 {
-
-
-
 
     string test = "Mississippi";
     int rows = test.length();
@@ -50,6 +66,7 @@ int main()
         array[i] = string(shiftedarray);
     }
 
+    InsertionSort(array, rows);
 
 
 
