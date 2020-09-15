@@ -80,40 +80,25 @@ int main()
     //checks for count of each letter in last. adds it to a final output string.
     for(int i = 0; i<rows;i++)
     {
+        if(i>0)
+        {
+            output+= " ";
+        }
         string letter = last[i];
-        int count = 0;
+        int count = 1;
         int searched = 0;
 
-        for(int k = 0; k<i;k++)
+        if(i<rows-1 && letter.compare(last[i+1])==0)
         {
-            if(letter.compare(last[k])==0)
-            {
-                searched =1;
-            }
+            count++;
+            i++;
         }
-
-        for(int j = 0; j< rows; j++)
-        {
-
-            if(letter.compare(last[j])==0)
-            {
-                count++;
-            }
-        }
-        if(searched ==0)
-        {
-            output+= std::to_string(count);
-            output+=letter;
-        }
+        output += std::to_string(count);
+        output += " ";
+        output += letter;
 
     }
 
-    string final;
-    for(int i = 0; i<output.length();i++)
-    {
-        final += output[i];
-        final += " ";
-    }
-    cout<< final;
+    cout<< output;
 
 }
