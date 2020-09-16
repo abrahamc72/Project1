@@ -2,8 +2,6 @@
 #include <fstream>
 #include <cstring>
 #include <string>
-#include <stdio.h>
-#include <stdlib.h>
 using namespace std;
 
 //left shift used to encode strings
@@ -11,12 +9,14 @@ string shiftLeft(string str)
 {
     string shifted;
     //loop takes a new string and copies, str starting from index 1
-    for (int i = 1; i < str.size(); ++i)
+    for (int i = 1; i < str.length(); ++i)
     {
         shifted += str[i];
     }
     //adds the old index 0 to the last index
     shifted += str[0];
+
+
     return shifted;
 }
 
@@ -47,12 +47,21 @@ void InsertionSort(string *pointer, int length)
     }
 }
 
-int main(int argc,char* argv[])
+int main(int argc, char* argv[])
 {
+    int cycle = 0;
+    while(true)
+    {
 
-    while(cin) {
         string test;
-        std::getline(cin, test);
+        getline(std::cin, test);
+        if(cycle>0 && test.empty())
+        {
+            break;
+        }
+        test.pop_back();
+
+        cycle++;
         int rows = test.length();
         string array[rows];
         string shiftedarray = test;
@@ -65,12 +74,8 @@ int main(int argc,char* argv[])
             shiftedarray = shiftLeft(shiftedarray);
             array[i] = string(shiftedarray);
         }
-        //array[1] = *(array+2);
 
-        //sort the cycled strings
-        if (argv[1] == "insertion") {
-            InsertionSort(array, rows);
-        }
+        InsertionSort(array,rows);
 
         for (int i = 0; i < rows; i++) {
             if (original.compare(array[i]) == 0) {
@@ -87,26 +92,38 @@ int main(int argc,char* argv[])
 
 
         string output;
+
         //checks for count of each letter in last. adds it to a final output string.
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < rows; i++)
+        {
             if (i > 0) {
                 output += " ";
             }
             string letter = last[i];
             int count = 1;
             int searched = 0;
+            char check[1];
+            check[0] = letter[0];
 
             if (i < rows - 1 && letter.compare(last[i + 1]) == 0) {
                 count++;
                 i++;
             }
-            output += std::to_string(count);
-            output += " ";
-            output += letter;
+
+            if( *check != 10 && *check!=13) {
+                output += std::to_string(count);
+                output += " ";
+                output += letter;
+
+
+            }
 
         }
 
-        cout << originalindex << endl;
-        cout << output;
+        std::cout << originalindex << endl;
+        std::cout << output<<endl;
+
+
     }
+    return 0;
 }
