@@ -49,18 +49,24 @@ void InsertionSort(string *pointer, int length)
 
 int main(int argc, char* argv[])
 {
+    //cycle keeps track of how many lines are being taken in.
     int cycle = 0;
+    string test;
     while(true)
     {
 
-        string test;
-        getline(std::cin, test);
+        if(cycle==0) {
+            getline(std::cin, test);
+        }
+        //if the getline is empty, the while loop will be broken and the program will end
         if(cycle>0 && test.empty())
         {
             break;
         }
+        //remove line seperator
         test.pop_back();
 
+        //variable initialization
         cycle++;
         int rows = test.length();
         string array[rows];
@@ -74,9 +80,10 @@ int main(int argc, char* argv[])
             shiftedarray = shiftLeft(shiftedarray);
             array[i] = string(shiftedarray);
         }
-
+        //call insert sort
         InsertionSort(array,rows);
 
+        //takes index of where original string is found
         for (int i = 0; i < rows; i++) {
             if (original.compare(array[i]) == 0) {
                 originalindex = i;
@@ -99,17 +106,19 @@ int main(int argc, char* argv[])
             if (i > 0) {
                 output += " ";
             }
+
             string letter = last[i];
             int count = 1;
             int searched = 0;
             char check[1];
             check[0] = letter[0];
 
+            //cluster detection
             if (i < rows - 1 && letter.compare(last[i + 1]) == 0) {
                 count++;
                 i++;
             }
-
+            //removes any seperators
             if( *check != 10 && *check!=13) {
                 output += std::to_string(count);
                 output += " ";
@@ -119,11 +128,20 @@ int main(int argc, char* argv[])
             }
 
         }
+        test ="";
+        getline(std::cin, test);
 
-        std::cout << originalindex << endl;
-        std::cout << output<<endl;
+        if(!test.empty())
+        {
+            std::cout << originalindex << endl;
+            std::cout << output << endl;
 
-
+        }
+        else{
+            std::cout << originalindex << endl;
+            std::cout << output;
+            break;
+        }
     }
     return 0;
 }
